@@ -1,7 +1,8 @@
 # aegis
 
 aegis is a meta-harness. It runs coding-agent CLIs (Claude Code, Gemini CLI,
-OpenCode) and its own native lovelaice agent as subprocesses, and adds a control
+OpenCode, Codex, Prime Agent) and its own native lovelaice agent as subprocesses,
+and adds a control
 plane above them: multiplexed sessions, inboxes, queues, workflows, schedules,
 groups, file claims, execution hosts, and an MCP server every spawned agent talks
 to. It is published on PyPI as `aegis-harness`, and it is the harness Alex and his

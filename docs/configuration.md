@@ -54,6 +54,8 @@ Each agent's `provider:` selects which CLI aegis drives.
 | `gemini`      | Gemini CLI   | `model`, `permission` | Permission maps to `--approval-mode`. |
 | `opencode`    | OpenCode     | `model`, `permission` | Model strings use `provider/model` form. |
 | `lovelaice`   | Lovelaice    | `model`, `permission`, `base_url`, `api_key_file` | The native agent — a dependency, not a CLI you install. `permission` defaults to `full`. |
+| `codex`       | Codex        | `model`, `permission` | Via the `codex-acp` adapter; needs `codex login`. |
+| `prime-agent` | Prime Agent  | `model`, `permission` | Native `--mode acp`. |
 
 See [Drivers](drivers.md) for what each provider's `model` strings
 look like and how permission maps to the underlying CLI's flag.
@@ -86,13 +88,13 @@ agents:
 
 | Field | Required | Means |
 |---|---|---|
-| `driver` | yes | one of `claude-code`, `gemini`, `opencode`, `lovelaice`. An unknown driver fails loud at boot. |
+| `driver` | yes | one of `claude-code`, `gemini`, `opencode`, `lovelaice`, `codex`, `prime-agent`. An unknown driver fails loud at boot. |
 | `base_url` | no | endpoint the driver talks to |
 | `api_key_file` | no | path to a file holding the key, read at spawn. Never inline a key. |
 | `default_model` | no | model for agents that don't set their own |
 | `permission_default` | no | [permission](#permission) for agents that don't set their own |
 
-The four driver names **auto-register as implicit harnesses**, so
+The driver names **auto-register as implicit harnesses**, so
 `harness: claude-code` works with no `harnesses:` block at all and every
 existing `provider:` config keeps loading unchanged. An explicit entry
 wins over the implicit one of the same name. Resolution rewrites an
@@ -109,6 +111,10 @@ with exactly the same shape either way.
 | `write` | edit-mode | `--approval-mode auto_edit` | edit tools |
 | `full`  | bypass    | `--approval-mode yolo`      | unrestricted |
 | `auto`  | default   | `--approval-mode default`   | default |
+
+The ACP harnesses (gemini, opencode, codex, prime-agent, lovelaice) take no
+permission flag: aegis's ACP client auto-allows the first permission option
+the harness offers.
 
 ### Effort (Claude only)
 

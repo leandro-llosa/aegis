@@ -2,9 +2,9 @@
 
 > **The programmable multi-agent meta-harness.**
 >
-> Drives Claude Code, Gemini CLI, and OpenCode in one terminal, gives
-> them six primitives for working together, and lets you orchestrate
-> them with deterministic Python workflows and scheduled jobs.
+> Drives Claude Code, Gemini CLI, OpenCode, Codex, and Prime Agent in one
+> terminal, gives them six primitives for working together, and lets you
+> orchestrate them with deterministic Python workflows and scheduled jobs.
 
 [![CI](https://github.com/apiad/aegis/actions/workflows/ci.yml/badge.svg)](https://github.com/apiad/aegis/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-apiad.github.io%2Faegis-blue)](https://apiad.github.io/aegis/)

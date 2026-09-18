@@ -16,6 +16,13 @@ The format follows Keep a Changelog; this project uses SemVer (0.x).
 
 ### Added
 
+- **Two new harnesses: `prime-agent` and `codex`.** Both speak ACP —
+  prime-agent natively (`prime-agent --mode acp`), codex through the
+  `@agentclientprotocol/codex-acp` adapter — so per-session MCP injection,
+  streaming and cancellation come from the generic ACP driver unchanged.
+  A model string passes through as `--model` / `-c model=`. In
+  `.aegis.yaml`, `provider: prime-agent` / `provider: codex` and the
+  implicit harnesses of the same names select them.
 - **Each turn says whether it needs you.** The end-of-turn recap classifies
   the turn as needs you, error, review, waiting or done. The model proposes
   the category; an error result, a queue or workflow worker, and a live

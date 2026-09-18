@@ -6,11 +6,11 @@ yields typed events (`AssistantText`, `ToolUse`, `ToolResult`,
 `Result`, etc.) to the surrounding session. Above the driver, aegis
 treats every provider identically.
 
-Four drivers ship today: `claude-code`, `gemini`, `opencode` and
-`lovelaice`. All four give the same UX surface — multi-turn, streaming,
-cancellation, per-session MCP injection.
+Six drivers ship today: `claude-code`, `gemini`, `opencode`, `lovelaice`,
+`codex` and `prime-agent`. All six give the same UX surface — multi-turn,
+streaming, cancellation, per-session MCP injection.
 
-The first three wrap a coding-agent CLI you installed yourself.
+The other five wrap a coding-agent CLI you installed yourself.
 `lovelaice` is the odd one out and the reason the sentence above says
 "driver" rather than "CLI wrapper": it is the **native, harness-free**
 agent. `lovelaice` is a PyPI dependency of aegis, so a fresh install has
@@ -25,11 +25,13 @@ endpoint for local models, or give it a key for a direct API.
 | Gemini CLI  | [ACP](https://github.com/zed-industries/agent-client-protocol) | `gemini --acp` | `session/new(mcpServers=[…])` | Pass-through |
 | OpenCode    | ACP | `opencode acp` | `session/new(mcpServers=[…])` | Pass-through |
 | Lovelaice   | ACP | `lovelaice-acp` (a dependency, not a CLI you install) | `session/new(mcpServers=[…])` | None — key file, or none for a local endpoint |
+| Codex       | ACP | `codex-acp` (the `@agentclientprotocol/codex-acp` adapter — the Codex CLI has no native ACP) | `session/new(mcpServers=[…])` | Pass-through (`codex login`) |
+| Prime Agent | ACP | `prime-agent --mode acp` (native) | `session/new(mcpServers=[…])` | Pass-through (its own provider auth) |
 
 ACP (Agent Client Protocol) is Zed's JSON-RPC-over-stdio specification
 for editor↔agent communication. Aegis uses the official Python SDK
 [`agent-client-protocol`](https://pypi.org/project/agent-client-protocol/)
-to drive Gemini, OpenCode and Lovelaice through it.
+to drive Gemini, OpenCode, Lovelaice, Codex and Prime Agent through it.
 
 ## What "feature parity" means
 
@@ -82,6 +84,8 @@ Each provider's `model` string is whatever its native CLI accepts:
 | `GeminiCLI`  | `gemini-3-flash-preview`, `gemini-3.1-pro-preview` |
 | `OpenCode`   | `opencode/kimi-k2.6`, `opencode/glm-5.1`, `opencode/minimax-m2.7`, `opencode/qwen3.6-plus` |
 | `Lovelaice`  | whatever the endpoint accepts — an OpenRouter id like `anthropic/claude-haiku-4-5`, or a local model id served by Ollama |
+| `Codex`      | whatever the logged-in Codex accepts, e.g. `gpt-5.1-codex` — set per agent via `model:` |
+| `PrimeAgent` | whatever prime-agent accepts; `prime-agent model` lists the available models |
 
 For OpenCode, run `opencode models` to see what's installed on your
 machine. For Gemini, see Google's model docs. For Lovelaice the answer
@@ -90,9 +94,12 @@ endpoint unchanged.
 
 ## Authentication
 
-The three CLI drivers don't manage credentials. They inherit whatever
+The CLI drivers don't manage credentials. They inherit whatever
 the underlying CLI sees — your Claude Code login, your `gcloud auth` for
-Gemini, your OpenCode provider config. Run the CLI directly first to
+Gemini, your OpenCode provider config. Codex needs `codex login` (or its
+config auth) plus the adapter installed (`npm install -g
+@agentclientprotocol/codex-acp`); prime-agent needs a working prime-agent
+install with its own provider auth. Run the CLI directly first to
 confirm it works, then aegis will see the same auth.
 
 `lovelaice` is the exception, because there is no CLI underneath it to

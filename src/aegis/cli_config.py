@@ -133,7 +133,10 @@ def agent_list_cmd() -> None:
 def agent_add_cmd(
     slug: str = typer.Argument(..., help="Agent profile slug."),
     provider: str = typer.Option(
-        ..., "--provider", "-p", help="claude-code | gemini | opencode"
+        ...,
+        "--provider",
+        "-p",
+        help="claude-code | gemini | opencode | lovelaice | codex | prime-agent",
     ),
     model: str = typer.Option(..., "--model", "-m"),
     effort: str | None = typer.Option(
@@ -431,7 +434,10 @@ def harness_list_cmd() -> None:
 def harness_add_cmd(
     name: str = typer.Argument(..., help="Harness name."),
     driver: str = typer.Option(
-        ..., "--driver", "-d", help="claude-code | gemini | opencode | lovelaice."
+        ...,
+        "--driver",
+        "-d",
+        help="claude-code | gemini | opencode | lovelaice | codex | prime-agent.",
     ),
     base_url: str = typer.Option(
         None, "--base-url", help="Endpoint (lovelaice/direct-API)."

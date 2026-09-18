@@ -5,9 +5,10 @@ from aegis.config.harnesses import (
 )
 
 
-def test_implicit_covers_four_drivers():
+def test_implicit_covers_all_drivers():
     assert set(IMPLICIT_HARNESSES) == {
-        "claude-code", "gemini", "opencode", "lovelaice"}
+        "claude-code", "gemini", "opencode", "lovelaice",
+        "codex", "prime-agent"}
     assert IMPLICIT_HARNESSES["opencode"].driver == "opencode"
 
 

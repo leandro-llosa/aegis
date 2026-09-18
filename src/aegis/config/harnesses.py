@@ -2,7 +2,7 @@
 
 A `HarnessRegistration` elevates today's per-agent provider fields
 (`base_url` / `api_key_file`) into a named, top-level `.aegis.yaml`
-`harnesses:` entry. Agents reference a harness by name; the four driver
+`harnesses:` entry. Agents reference a harness by name; the driver
 strings auto-register as implicit harnesses so legacy configs keep working.
 
 Resolution rewrites an agent's `harness` to the underlying **driver string**
@@ -16,20 +16,24 @@ from dataclasses import dataclass
 from aegis.config import (
     Agent,
     ClaudeCode,
+    Codex,
     ConfigError,
     GeminiCLI,
     Lovelaice,
     OpenCode,
     Permission,
+    PrimeAgent,
 )
 
-_DRIVERS = ("claude-code", "gemini", "opencode", "lovelaice")
+_DRIVERS = ("claude-code", "gemini", "opencode", "lovelaice", "codex", "prime-agent")
 
 _PROVIDER_BY_DRIVER: dict[str, type] = {
     "claude-code": ClaudeCode,
     "gemini": GeminiCLI,
     "opencode": OpenCode,
     "lovelaice": Lovelaice,
+    "codex": Codex,
+    "prime-agent": PrimeAgent,
 }
 
 # Legacy `provider:` names accepted directly (includes the gemini-cli alias

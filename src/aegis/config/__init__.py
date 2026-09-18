@@ -58,8 +58,8 @@ class Effort(str, Enum):
 
 class _ProviderBase(BaseModel):
     """Base for provider config objects. Subclasses bind to a specific
-    harness CLI (claude-code, gemini, opencode) and carry the per-provider
-    fields that matter for that CLI."""
+    harness CLI and carry the per-provider fields that matter for that
+    CLI."""
 
     model: str
     permission: Permission = Permission.auto
@@ -87,13 +87,25 @@ class Lovelaice(_ProviderBase):
     api_key_file: str | None = None
 
 
-Provider = ClaudeCode | GeminiCLI | OpenCode | Lovelaice
+class PrimeAgent(_ProviderBase):
+    name: Literal["prime-agent"] = "prime-agent"
+    permission: Permission = Permission.full
+
+
+class Codex(_ProviderBase):
+    name: Literal["codex"] = "codex"
+    permission: Permission = Permission.full
+
+
+Provider = ClaudeCode | GeminiCLI | OpenCode | Lovelaice | PrimeAgent | Codex
 
 _PROVIDERS_BY_NAME: dict[str, type[_ProviderBase]] = {
     "claude-code": ClaudeCode,
     "gemini": GeminiCLI,
     "opencode": OpenCode,
     "lovelaice": Lovelaice,
+    "prime-agent": PrimeAgent,
+    "codex": Codex,
 }
 
 

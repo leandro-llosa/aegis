@@ -1,8 +1,10 @@
 from aegis.drivers.base import HarnessDriver, HarnessSession
 from aegis.drivers.claude import ClaudeDriver
+from aegis.drivers.codex import CodexDriver
 from aegis.drivers.gemini import GeminiDriver
 from aegis.drivers.lovelaice import LovelaiceDriver
 from aegis.drivers.opencode import OpenCodeDriver
+from aegis.drivers.primeagent import PrimeAgentDriver
 
 # Provider name → driver class. Provider names match the strings users
 # pass as `Agent(harness=...)` (the legacy string shape) and the
@@ -13,6 +15,8 @@ DRIVERS: dict[str, type[HarnessDriver]] = {
     "gemini": GeminiDriver,
     "opencode": OpenCodeDriver,
     "lovelaice": LovelaiceDriver,
+    "codex": CodexDriver,
+    "prime-agent": PrimeAgentDriver,
 }
 
 
@@ -29,4 +33,6 @@ __all__ = [
     "GeminiDriver",
     "OpenCodeDriver",
     "LovelaiceDriver",
+    "CodexDriver",
+    "PrimeAgentDriver",
 ]

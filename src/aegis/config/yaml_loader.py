@@ -87,13 +87,20 @@ class AegisConfig:
     dynamic_workflow_autoapprove_agents: int = 5
 
 
-_VALID_DRIVERS = {"claude-code", "gemini", "opencode", "lovelaice"}
+_VALID_DRIVERS = {
+    "claude-code",
+    "gemini",
+    "opencode",
+    "lovelaice",
+    "codex",
+    "prime-agent",
+}
 
 
 def _harness_from_dict(name: str, d: dict[str, Any]) -> HarnessRegistration:
     """Construct a HarnessRegistration from a `harnesses:` YAML entry.
 
-    Requires a `driver` naming one of the four drivers. Unknown drivers
+    Requires a `driver` naming a known driver. Unknown drivers
     fail loud.
     """
     driver = d.get("driver")

@@ -145,7 +145,14 @@ def set_schedule_enabled(root: Path, name: str, value: bool) -> bool:
 
 # --- agents ----------------------------------------------------------
 
-_VALID_PROVIDERS = {"claude-code", "gemini", "opencode", "lovelaice"}
+_VALID_PROVIDERS = {
+    "claude-code",
+    "gemini",
+    "opencode",
+    "lovelaice",
+    "codex",
+    "prime-agent",
+}
 
 
 def add_agent(
@@ -349,7 +356,14 @@ def remove_queue(root: Path, name: str) -> None:
     _atomic_write(base, payload)
 
 
-_VALID_DRIVERS = {"claude-code", "gemini", "opencode", "lovelaice"}
+_VALID_DRIVERS = {
+    "claude-code",
+    "gemini",
+    "opencode",
+    "lovelaice",
+    "codex",
+    "prime-agent",
+}
 
 
 def add_harness(
